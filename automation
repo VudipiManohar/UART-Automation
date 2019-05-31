@@ -1,0 +1,15 @@
+#!/bin/sh
+echo "UART Automation Script"
+device=""
+baudrate=""
+device=$(dialog --ok-label "Next" --backtitle "UART Automation Script" --title "Connection" --inputbox "Device Name:" 8 20 3>&1 1>&2 2>&3 3>&- )
+clear
+baudrate=$(dialog --ok-label "Connect" --backtitle "UART Automation Script" --title "Connection" --inputbox "Baudrate:" 8 20 3>&1 1>&2 2>&3 3>&- )
+clear
+
+if [ -z "$device" ] 
+then
+	clear
+else
+	cu -l $device -s $baudrate
+fi

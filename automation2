@@ -1,0 +1,16 @@
+#!/bin/sh
+device=""
+baudrate=""
+echo "UART Automation"
+echo "Installation of \"cu\" and \"yad\" is necessary for this script to work"
+yad --image="network-wired" --window-icon="network-wired" --text="Welcome to UART configuration utility.\nInstallation of cu and yad package is necessary for this to work.\n(If already installed ignore)\n Select the device and input the baudrate to continue" --width=600 --height=200 --title "UART Configuration"
+device=$(yad --window-icon="network-wired" --width=500 --height=500 --title "Device Selection" --file)
+baudrate=$(yad --window-icon="network-wired" --width=300 --height=125 --title "Baudrate/Speed" --text-align=center --text="Input" --entry --entry-label="Speed" --entry-text="9600")
+
+if [ -z $device ]
+then
+	echo "Wrong Parameters"
+else
+	chmod 666 $device
+	gnome-terminal -e "cu -l $device -s $baudrate"
+fi
